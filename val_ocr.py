@@ -1,9 +1,7 @@
-from PIL import Image
 import cv2
 import torch
 import math 
 import function.utils_rotate as utils_rotate
-from IPython.display import display
 import os
 import time
 import argparse
@@ -12,8 +10,10 @@ import easyocr
 import numpy as np
 import shutil
 
-# from paddleocr import PaddleOCR
+from PIL import Image
+from IPython.display import display
 
+# from paddleocr import PaddleOCR
 # ocr = PaddleOCR(use_gpu=False, lang='vi', dilation=True,
 #                 det_db_box_thresh=0.5, det_limit_side_len=2200, use_dilation=True, 
 #                 det_east_nms_thresh=0.6, det_sast_nms_thresh=0.6) 
@@ -29,7 +29,6 @@ def agument_image(bgr_image):
     agument_img = cv2.filter2D(blur_img, -1, kernel)
 
     return agument_img
-
 
 reader = easyocr.Reader(['en'], gpu=False) # read text by use Easyocr
 # load model
@@ -54,19 +53,6 @@ for img in os.listdir(data_path):
         img_path = os.path.join(data_path, img)
         input_img = cv2.imread(img_path)
         flag = 0
-
-        # east ocr model
-        # agu_img = agument_image(input_img)
-        # result = reader.readtext(input_img, detail=1, paragraph=True)
-        # if len(result)>0 and result is not None:
-        #     # print("text:", result)
-        #     _, text = result[0]
-        #     print("text:", text)
-        #     if text==text_predict:
-        #         pre_rec += 1
-        #     # resize_img = cv2.resize(input_img, (1000, 1000))
-        #     cv2.putText(input_img, "my:" + text, (500, 120), cv2.FONT_HERSHEY_SIMPLEX, 1.5, (0, 0, 255), 4)
-        #     cv2.putText(input_img, "other:" + text_predict, (448, 165), cv2.FONT_HERSHEY_SIMPLEX, 1.5, (255,0,0), 4)
 
         # custom model
         lp = ""
